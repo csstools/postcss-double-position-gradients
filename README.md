@@ -2,7 +2,7 @@
 
 [<img alt="NPM Version" src="https://img.shields.io/npm/v/postcss-double-position-gradients.svg" height="20">][npm-url]
 [<img alt="CSS Standard Status" src="https://cssdb.org/badge/double-position-gradients.svg" height="20">][css-url]
-[<img alt="Build Status" src="https://img.shields.io/travis/csstools/postcss-double-position-gradients/master.svg" height="20">][cli-url]
+[<img alt="Build Status" src="https://github.com/csstools/postcss-double-position-gradients/workflows/test/badge.svg" height="20">][cli-url]
 [<img alt="Support Chat" src="https://img.shields.io/badge/support-chat-blue.svg" height="20">][git-url]
 
 [PostCSS Double Position Gradients] lets you use double-position gradients in
@@ -94,7 +94,7 @@ postcssDoublePositionGradients({ preserve: false })
 ```
 
 [css-url]: https://cssdb.org/#double-position-gradients
-[cli-url]: https://travis-ci.org/csstools/postcss-double-position-gradients
+[cli-url]: https://github.com/csstools/postcss-double-position-gradients/actions/workflows/test.yml?query=workflow/test
 [git-url]: https://gitter.im/postcss/postcss
 [npm-url]: https://www.npmjs.com/package/postcss-double-position-gradients
 
