@@ -1,4 +1,4 @@
-const {parse} = require("postcss-values-parser");
+const {parse, nodeToString} = require("postcss-values-parser");
 const Punctuation = require("postcss-values-parser/lib/nodes/Punctuation");
 
 // whether the value has a lab() or lch() matcher
@@ -22,12 +22,12 @@ module.exports = function creator(opts) {
 
 			const valueAST = parse(decl.value, { ignoreUnknownWords: true });
 
-			valueAST.walkFuncs((func) => {
+			valueAST.walkType('func', (func) => {
 				if (!gradientPartsRegExp.test(func.name)) {
 					return;
 				}
 
-				func.walkNumerics((node, index) => {
+				func.walkType('numeric', (node, index) => {
 					/** @type {import('postcss-values-parser').ChildNode} */
 					const node1back = Object(func.nodes[index - 1]);
 					/** @type {import('postcss-values-parser').ChildNode} */
@@ -42,7 +42,7 @@ module.exports = function creator(opts) {
 						const comma = new Punctuation({
 							value: ',',
 							raws: node1next.type === 'punctuation' && node1next.value === ','
-								? Object.assign({}, node1next.clone().raws)
+								? node1next.clone().raws
 								: { before: '', after: '' }
 						});
 
@@ -51,11 +51,13 @@ module.exports = function creator(opts) {
 				})
 			})
 
-			const modifiedValue = String(valueAST);
+			const modifiedValue = nodeToString(valueAST);
 
 			if (modifiedValue !== decl.value) {
-				if (preserve) decl.cloneBefore({ value: modifiedValue });
-				else decl.value = modifiedValue;
+				decl.cloneBefore({ value: modifiedValue })
+				if (!preserve) {
+					decl.remove();
+				}
 			}
 		}
 	}
